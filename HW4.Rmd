@@ -1,0 +1,32 @@
+---
+title: "Homework4"
+author: "Varsha Natarajan"
+date: "`2020-10-01`"
+output: 
+  html_document: 
+  toc: true
+  highlights: "pygments"
+---
+To load the dataset into r. This data has 17 variables for 520 people. The data talks about the different symptoms and presence of diabetes.
+
+```{r, loading data}
+mydata <- read.csv("diabetes_data_upload.csv")
+```
+
+To view the variables in the dataset.
+
+```{r}
+names(mydata)
+```
+
+```{r}
+library(readr)
+
+Gender <- ifelse(mydata$Gender == "Yes", 1, 0)
+Obesity <- ifelse(mydata$Obesity == "Yes", 1,0)
+Diabetes <- ifelse(mydata$diabetes == "Yes", 1, 0)
+
+logistic <- glm(Diabetes ~ Obesity + Gender + Age  , data = mydata, family = "binomial", maxit=100)
+summary(logistic)
+
+```
